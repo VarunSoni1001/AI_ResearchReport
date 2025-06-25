@@ -3,6 +3,7 @@ import { ENV } from "../constants/env";
 import { GoogleGenAI } from "@google/genai";
 
 const GEMINI_API_KEY = ENV.GOOGLE_GEMINI_API_KEY;
+const GEMINI_MODEL = ENV.GOOGLE_GEMINI_MODEL;
 
 if (!GEMINI_API_KEY) {
   throw new Error("GEMINI_API_KEY is not defined");
@@ -10,7 +11,7 @@ if (!GEMINI_API_KEY) {
 
 // OLD
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const model = genAI.getGenerativeModel({ model: GEMINI_MODEL });
 
 const getReport = async (prompt: { keywords: string[] }) => {
   let systemInstruction = "";
@@ -54,7 +55,6 @@ const getReport = async (prompt: { keywords: string[] }) => {
 const ai = new GoogleGenAI({
   apiKey: GEMINI_API_KEY,
 });
-const aiModel = "gemini-1.5-flash";
 
 const getReportNew = async (prompt: { keywords: string[] }) => {
   let systemInstruction = "";
@@ -70,7 +70,7 @@ const getReportNew = async (prompt: { keywords: string[] }) => {
 
   try {
     const result = await ai.models.generateContent({
-      model: aiModel,
+      model: GEMINI_MODEL,
       contents: [
         {
           role: "user",
